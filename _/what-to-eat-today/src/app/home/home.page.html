@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <h1>
+            🥞 What To Eat Today?
+        </h1>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid *ngIf="meals$ | async as meals">
+        <ion-row>
+            <ion-col
+                *ngFor="let meal of meals"
+                size="6"
+                [routerLink]="['/meal', meal.idMeal]"
+                routerDirection="forward"
+            >
+                <img [src]="meal.strMealThumb" />
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="Loading more data..."
+        >
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
